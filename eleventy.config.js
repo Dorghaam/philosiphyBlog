@@ -7,4 +7,9 @@ module.exports = function (eleventyConfig) {
     "./public/": "/",
   });
 
+  // this makes a collection of all posts so we can show them on the home page
+  eleventyConfig.addCollection("posts", function(collectionApi) {
+    return collectionApi.getFilteredByTag("posts");
+  });
+
 };
