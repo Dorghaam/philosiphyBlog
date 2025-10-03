@@ -1,7 +1,7 @@
 ---
 title: what is philosophy
 description: my thoughts on what philosophy means
-date: 2024-01-15
+date: 2025-10-03
 tags: posts
 layout: base.njk
 ---
