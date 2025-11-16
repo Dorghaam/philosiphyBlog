@@ -1,0 +1,93 @@
+---
+title: search posts
+layout: base.njk
+---
+
+<h1>search my posts</h1>
+
+<input type="text" id="search-box" placeholder="type something to search...">
+
+<div id="search-results">
+  <p>type in the box above to search for posts</p>
+</div>
+
+<script>
+// this gets all the posts from ghost as json data
+var allPosts = {{ posts | dump | safe }};
+
+// this gets the search box where people type
+var searchBox = document.getElementById('search-box');
+
+// this gets the area where we show results
+var resultsArea = document.getElementById('search-results');
+
+// this runs every time someone types in the search box
+searchBox.addEventListener('input', function() {
+
+  // get what the person typed and make it lowercase
+  var whatTheyTyped = searchBox.value.toLowerCase();
+
+  // if they didnt type anything show a message
+  if (whatTheyTyped === '') {
+    resultsArea.innerHTML = '<p>type in the box above to search for posts</p>';
+    return;
+  }
+
+  // make an empty list to store posts that match
+  var postsWeFound = [];
+
+  // go through each post one by one
+  for (var i = 0; i < allPosts.length; i++) {
+    var currentPost = allPosts[i];
+
+    // get the title and make it lowercase
+    var postTitle = currentPost.title.toLowerCase();
+
+   
+    var postExcerpt = '';
+    if (currentPost.excerpt) {
+      postExcerpt = currentPost.excerpt.toLowerCase();
+    }
+
+    // get the content and make it lowercase
+    var postContent = '';
+    if (currentPost.html) {
+      postContent = currentPost.html.toLowerCase();
+    }
+
+    // check if what they typed is in the title
+    var foundInTitle = postTitle.indexOf(whatTheyTyped) !== -1;
+
+
+    var foundInExcerpt = postExcerpt.indexOf(whatTheyTyped) !== -1;
+
+    // check if what they typed is in the content
+    var foundInContent = postContent.indexOf(whatTheyTyped) !== -1;
+
+    // if we found it in any of those places add it to our list
+    if (foundInTitle || foundInExcerpt || foundInContent) {
+      postsWeFound.push(currentPost);
+    }
+  }
+
+  // now show the results
+  if (postsWeFound.length === 0) {
+    // we didnt find anything
+    resultsArea.innerHTML = '<p>no posts found matching "' + whatTheyTyped + '"</p>';
+  } else {
+    // we found some posts so show them
+    var htmlToShow = '<h2>found ' + postsWeFound.length + ' post(s)</h2><ul>';
+
+    for (var j = 0; j < postsWeFound.length; j++) {
+      var post = postsWeFound[j];
+      htmlToShow += '<li>';
+      htmlToShow += '<a href="/posts/' + post.slug + '/">' + post.title + '</a>';
+      htmlToShow += '<p>' + (post.excerpt || '') + '</p>';
+      htmlToShow += '</li>';
+    }
+
+    htmlToShow += '</ul>';
+    resultsArea.innerHTML = htmlToShow;
+  }
+});
+</script>
