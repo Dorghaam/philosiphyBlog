@@ -5,7 +5,7 @@ const ghostContentAPI = require("@tryghost/content-api");
 // set up the connection to ghost
 const api = new ghostContentAPI({
   url: "http://127.0.0.1:2368",
-  key: "2320e22a7c3166cb92c5dc14ab",
+  key: "2531dc4c35104b02140590540e",
   version: "v5.0",
 });
 
