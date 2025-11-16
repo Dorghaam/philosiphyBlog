@@ -1,7 +1,7 @@
 ---
 title: why do we think
 description: exploring the nature of human thought
-date: 2024-01-20
+date: 2025-10-03
 tags: posts
 layout: base.njk
 ---
