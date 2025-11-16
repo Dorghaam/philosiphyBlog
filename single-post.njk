@@ -1,0 +1,18 @@
+---
+layout: base.njk
+pagination:
+  data: posts
+  size: 1
+  alias: post
+  addAllPagesToCollections: true
+permalink: "/posts/{{ post.title | slugify }}/"
+tags: posts
+eleventyComputed:
+  title: "{{ post.title }}"
+---
+
+<h1>{{ post.title }}</h1>
+
+<div>
+  {{ post.html | safe }}
+</div>
