@@ -9,6 +9,7 @@ permalink: "/posts/{{ post.title | slugify }}/"
 tags: posts
 eleventyComputed:
   title: "{{ post.title }}"
+  description: "{{ post.excerpt }}"
 ---
 
 <h1>{{ post.title }}</h1>
