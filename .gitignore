@@ -1,2 +1,8 @@
-# Local Netlify folder
+# node modules folder (netlify will install these automatically)
+node_modules
+
+# built site folder (netlify will build this automatically)
+_site
+
+# local netlify folder
 .netlify
