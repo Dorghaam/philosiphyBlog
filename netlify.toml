@@ -1,0 +1,12 @@
+# this file tells netlify how to build and run our site
+
+# build settings
+[build]
+  # this command builds our eleventy site
+  command = "npx eleventy"
+  # this is the folder where our built site goes
+  publish = "_site"
+
+# this tells netlify where our functions are
+[functions]
+  directory = "netlify/functions"

@@ -1,2 +1,158 @@
-<h1>philosophy blog</h1>
-<p>A simple blog about philosophy made with eleventy.</p>
+<h1>my philosophy blog</h1>
+<p>a simple blog about philosophy that uses ghost cms and eleventy to show posts.</p>
+<h2>what is this project?</h2>
+<p>this is a blog website about philosophy. it lets me write blog posts in a nice admin panel (ghost cms) and then shows them on a website (made with eleventy). i dont have to write code to add new posts, i just use the ghost admin panel like a normal blog website.</p>
+<h2>how it works</h2>
+<p>the project has two parts:</p>
+<ol>
+<li><strong>ghost cms</strong> - this runs in docker and gives me a place to write and manage blog posts</li>
+<li><strong>eleventy blog</strong> - this is the actual website that people see. it gets the posts from ghost and shows them nicely</li>
+</ol>
+<h2>how to set everything up</h2>
+<h3>step 1: make sure you have these installed</h3>
+<ul>
+<li>node.js (version 18 or higher)</li>
+<li>docker desktop</li>
+<li>npm (comes with node.js)</li>
+</ul>
+<h3>step 2: start ghost cms</h3>
+<p>ghost runs in docker. here is how to start it:</p>
+<ol>
+<li>open docker desktop and make sure it is running</li>
+<li>open your terminal</li>
+<li>go to the ghost docker folder:<pre><code>cd path/to/assignment-2-sample/ghost-cms/docker
+</code></pre>
+</li>
+<li>start ghost:<pre><code>docker-compose build &amp;&amp; docker-compose up -d
+</code></pre>
+</li>
+<li>ghost is now running at http://localhost:2368</li>
+</ol>
+<h3>step 3: set up ghost admin</h3>
+<ol>
+<li>open http://localhost:2368/ghost in your browser</li>
+<li>create your admin account (name, email, password)</li>
+<li>you are now in the ghost admin panel</li>
+</ol>
+<h3>step 4: create some posts</h3>
+<ol>
+<li>in ghost admin, click &quot;posts&quot; on the left</li>
+<li>click &quot;new post&quot;</li>
+<li>write your post</li>
+<li>click the settings gear icon on the right</li>
+<li>scroll down to &quot;tags&quot; and add the tag &quot;posts&quot;</li>
+<li>click &quot;publish&quot; to publish the post</li>
+<li>make 2 or 3 posts so you have content</li>
+</ol>
+<h3>step 5: get your api key</h3>
+<p>the eleventy blog needs a key to talk to ghost:</p>
+<ol>
+<li>in ghost admin, click &quot;settings&quot; (gear icon in bottom left)</li>
+<li>click &quot;integrations&quot;</li>
+<li>click &quot;add custom integration&quot;</li>
+<li>name it something like &quot;my blog&quot;</li>
+<li>copy the &quot;content api key&quot; (long string of letters and numbers)</li>
+<li>open <code>eleventy.config.js</code> in your code editor</li>
+<li>find the line that says <code>key: &quot;your key here&quot;</code></li>
+<li>paste your api key there</li>
+</ol>
+<h3>step 6: install the blog dependencies</h3>
+<ol>
+<li>open terminal</li>
+<li>go to your philosophy-blog folder:<pre><code>cd path/to/philosophy-blog
+</code></pre>
+</li>
+<li>install the packages:<pre><code>npm install
+</code></pre>
+</li>
+</ol>
+<h3>step 7: run the blog</h3>
+<ol>
+<li>make sure ghost is still running in docker</li>
+<li>in your terminal (in the philosophy-blog folder), run:<pre><code>npm start
+</code></pre>
+</li>
+<li>open your browser and go to http://localhost:8080</li>
+<li>you should see your blog with the posts from ghost!</li>
+</ol>
+<h2>how to add new posts later</h2>
+<ol>
+<li>make sure ghost is running (docker-compose up -d)</li>
+<li>go to http://localhost:2368/ghost</li>
+<li>write a new post</li>
+<li>add the &quot;posts&quot; tag</li>
+<li>publish it</li>
+<li>refresh your blog website and the new post will show up</li>
+</ol>
+<h2>how to stop everything</h2>
+<p>to stop ghost:</p>
+<pre><code>cd path/to/ghost-cms/docker
+docker-compose down
+</code></pre>
+<p>to stop the blog:
+press ctrl+c in the terminal where npm start is running</p>
+<h2>what each file does</h2>
+<ul>
+<li><strong>eleventy.config.js</strong> - this is the brain of the site. it tells eleventy how to build the blog and how to connect to ghost</li>
+<li><strong>index.njk</strong> - this is the home page that shows a list of all posts</li>
+<li><strong>posts.njk</strong> - this shows all posts with pagination (2 posts per page)</li>
+<li><strong>single-post.njk</strong> - this is a template that creates one page for each post from ghost</li>
+<li><strong>search.njk</strong> - this is the search page where you can search for posts</li>
+<li><strong>base.njk</strong> - this is in the _includes folder and makes all pages look similar</li>
+<li><strong>public/css/style.css</strong> - this makes the blog look nice with colors and styling</li>
+<li><strong>_site/</strong> - this folder gets created when you run npm start. it has all the finished web pages</li>
+</ul>
+<h2>what changed from before</h2>
+<p><strong>before:</strong></p>
+<ul>
+<li>i wrote posts in markdown files (.md files) in a posts folder</li>
+<li>every time i wanted a new post i had to create a new file and write code</li>
+</ul>
+<p><strong>now:</strong></p>
+<ul>
+<li>i write posts in ghost cms admin panel (like wordpress)</li>
+<li>i just click buttons and type, no code needed</li>
+<li>ghost stores all the posts</li>
+<li>eleventy asks ghost for the posts and builds the website</li>
+</ul>
+<p><strong>why this is better:</strong></p>
+<ul>
+<li>easier to write posts</li>
+<li>can add images by dragging and dropping</li>
+<li>can save drafts</li>
+<li>can schedule posts for later</li>
+<li>dont have to touch code files to write a blog post</li>
+</ul>
+<h2>features</h2>
+<ul>
+<li>shows all blog posts from ghost</li>
+<li>pagination (2 posts per page on the all posts page)</li>
+<li>search functionality (can search posts by title or content)</li>
+<li>filtering by tag (only shows posts tagged with &quot;posts&quot;)</li>
+<li>nice styling with earth tones and card design</li>
+<li>responsive layout that looks good</li>
+</ul>
+<h2>important note about localhost vs 127.0.0.1</h2>
+<p>in the eleventy.config.js file, i use <code>http://127.0.0.1:2368</code> instead of <code>http://localhost:2368</code> for the ghost url. this is because the ghost api library was trying to connect using ipv6 (::1) but ghost only listens on ipv4 (127.0.0.1). using 127.0.0.1 fixes this connection issue.</p>
+<h2>if something goes wrong</h2>
+<p><strong>ghost wont start:</strong></p>
+<ul>
+<li>make sure docker desktop is running</li>
+<li>try <code>docker-compose down</code> then <code>docker-compose up -d</code> again</li>
+</ul>
+<p><strong>blog shows no posts:</strong></p>
+<ul>
+<li>make sure ghost is running</li>
+<li>make sure your posts have the &quot;posts&quot; tag in ghost</li>
+<li>make sure the api key in eleventy.config.js is correct</li>
+<li>try stopping the blog (ctrl+c) and starting it again (npm start)</li>
+</ul>
+<p><strong>connection refused error:</strong></p>
+<ul>
+<li>make sure ghost is running on port 2368</li>
+<li>check that nothing else is using port 2368</li>
+<li>try using 127.0.0.1 instead of localhost in the config</li>
+</ul>
+<h2>made by</h2>
+<p>dorghaam haidar</p>
+<p>for inft3102 assignment 2</p>
