@@ -13,31 +13,53 @@
 
 <p><a href="/search/">search posts</a> | <a href="/posts/">view all posts</a></p>
 
+<!-- this is the quote section -->
+<!-- it starts with "loading quote..." and then our script fills it in -->
+<div id="quote-container">
+  <h2>quote of the day</h2>
+  <p>loading quote...</p>
+</div>
+
 <h2>my posts</h2>
 
 <ul>
 
-  <li>
-    <a href="/posts/test-blog/">Test Blog</a>
-    <p>Im testing with this</p>
-  </li>
-
-  <li>
-    <a href="/posts/what-if-life/">What if life?</a>
-    <p>Its great?!</p>
-  </li>
-
-  <li>
-    <a href="/posts/hedonism/">Hedonism</a>
-    <p>Very, very bad.</p>
-  </li>
-
-  <li>
-    <a href="/posts/stoicism/">Stoicism</a>
-    <p>Im a stoic.</p>
-  </li>
-
 </ul>
+
+<!-- this script runs when the page loads -->
+<!-- it calls our netlify function to get a quote -->
+<script>
+  // wait for the page to fully load before running this code
+  window.addEventListener('DOMContentLoaded', async function() {
+
+    // find the quote container on the page
+    const quoteContainer = document.getElementById('quote-container');
+
+    try {
+      // call our netlify function to get a quote
+      // the function is at this url
+      const response = await fetch('/.netlify/functions/get-quote');
+
+      // turn the response into json so we can read it
+      const quote = await response.json();
+
+      // put the quote on the page
+      // we use backticks so we can put variables inside the string
+      quoteContainer.innerHTML = `
+        <h2>quote of the day</h2>
+        <p>"${quote.content}"</p>
+        <p><em>- ${quote.author}</em></p>
+      `;
+
+    } catch (error) {
+      // if something goes wrong show an error message
+      quoteContainer.innerHTML = `
+        <h2>quote of the day</h2>
+        <p>could not load a quote right now.</p>
+      `;
+    }
+  });
+</script>
 
 
 </body>
